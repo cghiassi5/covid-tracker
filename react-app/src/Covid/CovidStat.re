@@ -1,36 +1,5 @@
-let myUrl = "https://api.covidtracking.com/v1/us/daily.json"
-
-
-type sampleDay = {
-  date: int,
-  hospitalizedCurrently: option(int),
-  hospitalizedCumulative: option(int),
-  hash: string
-};
-
-module Decode = {
-  let item = json =>
-    Json.Decode.{
-      date: json |> field("date", int),
-      hospitalizedCurrently: json |> field("hospitalizedCurrently", optional(int)),
-      hospitalizedCumulative: json |> field("hospitalizedCumulative", optional(int)),
-      hash: json |> field("hash", string)
-  };
-    let all =
-    Json.Decode.array(item)
-
-
-};
-
-let fetchJson = (url, decoder) =>
-  Js.Promise.(
-    Fetch.fetch(url)
-    |> then_(Fetch.Response.json)
-    |> then_(obj => obj |> decoder |> resolve)
-  );
-
-let fetchCovidData = () =>
-  fetchJson(myUrl, Decode.all)
+open DataFetch;
+open Decoder;
 
 type state =
   | LoadingDogs
@@ -44,7 +13,7 @@ let make = () => {
   React.useEffect0(() => {
     Js.Promise.(
       fetchCovidData()
-        |> then_(data => data |> Js.log|> resolve)
+        |> then_(data => data |> covidArray => setState(_previousState => LoadedDogs(covidArray))|> resolve)
       |> ignore
     );
     None;
@@ -65,7 +34,7 @@ let make = () => {
      Js.log(dogs)
         dogs
        ->Belt.Array.map((dog) => {
-        <div> {ReasonReact.string(dog.hash)} </div>
+        <div key= (dog.hash) > {ReasonReact.string(dog.hash)} </div>
          })
        ->React.array
      }}
