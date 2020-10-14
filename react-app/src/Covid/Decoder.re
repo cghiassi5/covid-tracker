@@ -15,6 +15,4 @@ module Decode = {
   };
     let all =
     Json.Decode.array(item)
-
-
 };

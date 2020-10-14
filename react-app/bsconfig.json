@@ -17,7 +17,8 @@
   "bs-dependencies": [
     "@glennsl/bs-json",
     "reason-react",
-    "bs-fetch"
+    "bs-fetch",
+    "@ahrefs/bs-recharts"
   ],
   "refmt": 3
 }
