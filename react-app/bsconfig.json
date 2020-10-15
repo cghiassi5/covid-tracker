@@ -15,10 +15,10 @@
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": [
+    "@ahrefs/bs-recharts",
     "@glennsl/bs-json",
     "reason-react",
-    "bs-fetch",
-    "@ahrefs/bs-recharts"
+    "bs-fetch"
   ],
   "refmt": 3
 }

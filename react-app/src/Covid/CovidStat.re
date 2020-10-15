@@ -1,12 +1,28 @@
 open DataFetch;
 open Decoder;
-open BsRecharts;
-
 
 type state =
   | Loading
   | ErrorFetching
   | Loaded(array(sampleDay));
+
+//used to create a variable of same type as fetched data for testing
+let blah = [|{
+  date: 1234,
+  hospitalizedCurrently: Some(1234),
+  hospitalizedCumulative: Some(1234),
+  hash: "string"
+}|];
+//sample array for testing
+type payload = {
+  name: string,
+  age: int
+};
+
+let student1 = {
+  name: "John",
+  age: 30,
+};
 
 [@react.component]
 let make = () => {
@@ -37,16 +53,8 @@ let make = () => {
      | Loading => React.string("Loading...")
      | Loaded(stats) =>
      Js.log(stats);
-      <ResponsiveContainer height=(Px(200.)) width=(Px(300.))>
-      <BarChart
-        barCategoryGap=(Px(1.))
-        margin={"top": 0, "right": 0, "bottom": 0, "left": 0}
-        data={stats}>
-        <Bar name="bar" dataKey="date" fill="#ff7f02" stackId="a" />
-        <Tooltip />
-        <Legend align=`left iconType=`circle />
-      </BarChart>
-    </ResponsiveContainer>
+        <Hello data="stats" />
+        // <Chart data={[|student1|]} />
      }}
   </div>;
 };

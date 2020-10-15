@@ -1,6 +1,7 @@
 open Decoder;
 
 let myUrl = "https://api.covidtracking.com/v1/us/daily.json"
+
 let fetchJson = (url, decoder) =>
   Js.Promise.(
     Fetch.fetch(url)
@@ -9,4 +10,4 @@ let fetchJson = (url, decoder) =>
   );
 
 let fetchCovidData = () =>
-  fetchJson(myUrl, Decode.all)
+  fetchJson(myUrl, Decode.all);
